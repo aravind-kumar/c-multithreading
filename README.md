@@ -1,2 +1,2 @@
-# c-multithreading
+# c-plus-plus-multithreading
 multithreading in c++
