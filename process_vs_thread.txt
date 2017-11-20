@@ -1,0 +1,12 @@
+There are 3 types of concurrecy models
+1.Multithreading
+2.Multi Processing
+3.Async programming
+
+
+1.Mutithreading
+  Are within the same process but concurrently when the cpu schedules every in a very fast manner 
+  Such that it gives an illusion that they are simultaneously running
+  
+  Communication between two or more threads is often faster because the communicate using shared memory
+  Threads share the same heap but have their own stack.
