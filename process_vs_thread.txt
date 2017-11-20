@@ -10,3 +10,23 @@ There are 3 types of concurrecy models
   
   Communication between two or more threads is often faster because the communicate using shared memory
   Threads share the same heap but have their own stack.
+ 
+  Its lightweight and the cpu does not have to provide alot of protection when interleaving threads.
+  
+  Its also hard to implement it correctly.
+
+  In c++ new threads are created using thread object
+
+
+2.MultiProcessing
+  Are when two or more process are simultaneously running and communicating with each other
+  usually using pipe,memory buffers and files.
+
+  Communication is not as fast as threads 
+
+  The cpu has to keep alot of bookeeping in order to make sure that two or more threads do not
+  overlap or access each other memory storage
+ 
+  The cpu has PCB (Process control block) where it stores all the proces's stack,heaps and register
+  
+  Everytime a process  
