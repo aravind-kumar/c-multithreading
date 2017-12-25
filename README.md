@@ -88,3 +88,4 @@ Before exiting i.e. the t.join() hence the program wouldnt crash as seen on the 
 
 We could have also used t.detach here but we shouldnt use detach here because there is no gaurantee that the thread's cout would live long// enough before the parent exits, hence it causes undefined behaviour thats why detach shouldnt be used in this case.
 
+
