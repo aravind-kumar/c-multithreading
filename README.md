@@ -88,4 +88,24 @@ Before exiting i.e. the t.join() hence the program wouldnt crash as seen on the 
 
 We could have also used t.detach here but we shouldnt use detach here because there is no gaurantee that the thread's cout would live long// enough before the parent exits, hence it causes undefined behaviour thats why detach shouldnt be used in this case.
 
+## Problem 2:
+
+```c++
+
+int main()
+{
+   std::thread t([] 
+                   { std::cout<<"\n This is a thread";
+                     throw std::logic_error("Simple execption");
+                   });
+   t.join();
+   //t.detach();
+   return 0;
+}
+
+```
+In this case the thread throws an exeption or say the main throws an execption before the join.
+What would be the bhevaiour of the program ?
+We would have an dangalling thread whose bhevaiour is unknown.
+In order to fix this we use somthing known as RAII.
 
