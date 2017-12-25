@@ -146,8 +146,34 @@ int main()
 
 This binds a thread to a local stack variable,Hence even if an execption is thrown its made sure that the threads are joined in the end.
 RAII isnt somthing specific to threads.Often its also used with memory management. 
+ 
+```c++
 
+template <typedef T> 
+class dummy_RAII
+{
+   T* heap_mem;
+   dummy_RAII(T&* givenInput) : heap_mem(givenInput)
+   {
+ 
+   } 
+   
+   ~dummy_RAII()
+   {
+      delete heap_mem;
+   }
+};
+  
+int main()
+{
+   dummy_RAII temp(allocate_mem());
+   temp->performOperation();
+   return 0;
+}
 
+```
+In this case as well the heap is bounded to a stack variable hence there's no need for explicit memory dellocation or handling of cases whrere an execption is thrown.
+The scope of the stack variable will make sure that the variable is deallocated whenever it goes out of scope.
 
 
 
