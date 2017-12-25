@@ -109,3 +109,46 @@ What would be the bhevaiour of the program ?
 We would have an dangalling thread whose bhevaiour is unknown.
 In order to fix this we use somthing known as RAII.
 
+RAII:
+
+```c++
+
+class RAII_thread 
+{
+   thread t;
+   
+   RAII_thread(thread givenThread) : t(std::move(givenThread))
+   {
+       if(!givenThread.joinable())
+       {
+         throw std::logic_error("Non joinable threads");
+       }
+   }
+   ~RAII_thread()
+   {
+      t.join();
+   }
+ 
+   RAII_thread(RAII_thread&) = delete;
+
+   RAII_thread& operator=(RAII_thread const &) = delete; 
+
+};
+
+
+int main()
+{
+    RAII_thread(std::thread([] { cout<<"\n This is a scoped thread";}););
+
+}
+
+```
+
+This binds a thread to a local stack variable,Hence even if an execption is thrown its made sure that the threads are joined in the end.
+RAII isnt somthing specific to threads.Often its also used with memory management. 
+
+
+
+
+
+
