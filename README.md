@@ -2,16 +2,22 @@
 multithreading in c++
 
 There are 3 types of concurrecy models
+
 1.Multithreading
+
 2.Multi Processing
+
 3.Async programming
 
 
 1.Mutithreading
+
   Are within the same process but concurrently when the cpu schedules every in a very fast manner 
+
   Such that it gives an illusion that they are simultaneously running
   
   Communication between two or more threads is often faster because the communicate using shared memory
+
   Threads share the same heap but have their own stack.
  
   Its lightweight and the cpu does not have to provide alot of protection when interleaving threads.
@@ -22,6 +28,7 @@ There are 3 types of concurrecy models
 
 
 2.MultiProcessing
+
   Are when two or more process are simultaneously running and communicating with each other
 
   usually using pipe,memory buffers and files.
@@ -174,6 +181,74 @@ int main()
 ```
 In this case as well the heap is bounded to a stack variable hence there's no need for explicit memory dellocation or handling of cases whrere an execption is thrown.
 The scope of the stack variable will make sure that the variable is deallocated whenever it goes out of scope.
+
+
+## Problem 3:
+
+``` c++
+
+struct Worker
+{
+  string workerName;
+
+  public:
+
+  Worker(string name) : workerName(name);
+
+  operator()
+  {
+     cout<<"\n the name of the worker is "<<workerName;
+  }
+
+};
+
+
+int main()
+{
+    cout<<"\n Start";
+    thread t1 = thread(Worker("Aravind"));
+    thread t2 = thread(Worker("Kumar"));
+    thread t3 = thread(Worker("Is"));
+    thread t4 = thread(Worker("Awesome"));
+    thread t5 = thread(Worker("Hero"));
+   
+    t1.join();
+    t2.join();
+    t3.join();
+    t4.join();
+    t5.join(); 
+    cout<<"\n End";
+}
+
+```
+Problem ? cout is not thread safe and hence it would have undefined bhevaiour.
+
+In order to fix we need to add a mutex/lock to protect the critical section.
+
+```c++
+
+mutex coutMutex;
+
+struct Worker
+{
+  string workerName;
+
+  public:
+
+  Worker(string name) : workerName(name);
+
+  operator()
+  {
+     coutMutex.lock();
+     cout<<"\n the name of the worker is "<<workerName;
+     coutMutex.unlock();
+  }
+
+};
+
+```
+
+Problem2 ? What if the Critical section between a lock and unlock throws an execption ?
 
 
 
