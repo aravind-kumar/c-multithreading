@@ -250,6 +250,15 @@ struct Worker
 
 Problem2 ? What if the Critical section between a lock and unlock throws an execption ?
 
+If the CS section between a lock and unlock throws an execption then the lock remains held and doesnt get unlocked.
+There are 2 solutions to get out of this problem
+
+1.use lock_guard instead of lock to protect the CS.
+  
+  the lock guard will ensure that the lock is unlocked after the lock.
+
+2.Use RAII of lock which essentially is the implmentation of lock guard.
 
 
 
+Problem 3: Singleton Pattern (Double checked locking pattern)
