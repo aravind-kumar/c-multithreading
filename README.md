@@ -262,3 +262,26 @@ There are 2 solutions to get out of this problem
 
 
 Problem 3: Singleton Pattern (Double checked locking pattern)
+
+A singleton class is a class wherein there can be only object throught the complete system usually global.
+
+``` c++
+
+class singleton
+{
+   singleton* instance;
+   public:
+    static singleton* getInstance() 
+    {
+        if(!instance)
+             instance = new singleton();
+         return instance;
+    }
+
+};
+
+```
+The above code would work for cases wherein the above code is being invoked in single threaded instances Acutally the copy and assignments operators should be deleted for it work.
+
+However it wouldnt work on multithreaded environments.
+Why ? because if multiple threads invoke getInstance at the same time then each thread would get its own instance.
