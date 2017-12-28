@@ -285,3 +285,27 @@ The above code would work for cases wherein the above code is being invoked in s
 
 However it wouldnt work on multithreaded environments.
 Why ? because if multiple threads invoke getInstance at the same time then each thread would get its own instance.
+
+
+Solution 1:
+
+
+``` c++
+class singleton
+{
+   singleton* instance;
+   static mutex m;
+   public:
+    static singleton* getInstance() 
+    {
+       {
+         lock_guard<mutex>(m);
+        if(!instance)
+             instance = new singleton();
+         return instance;
+       }
+    }
+
+``` 
+This would be the problem however we are taking a lock for every call of getInstance however we only need the lock for the first instance this would be a bottleneck in multithreaded scenario
+
