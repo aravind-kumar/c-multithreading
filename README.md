@@ -309,3 +309,17 @@ class singleton
 ``` 
 This would be the problem however we are taking a lock for every call of getInstance however we only need the lock for the first instance this would be a bottleneck in multithreaded scenario
 
+
+
+C++ clean solution:
+
+``` c++
+class singleton {
+
+      public singleton getInstance() {
+          static singleton s;
+          return &s; 
+      }
+};
+
+```
